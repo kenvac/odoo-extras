@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <!-- Invoice Cancel Wizard -->
+        <record id="view_invoice_cancel_reason_wizard" model="ir.ui.view">
+            <field name="name">Invoice Cancel Reason Wizard</field>
+            <field name="model">wizard.invoice.cancel.reason</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Cancel Reason">
+                    <group>
+                        <field name="type" invisible="1" />
+                        <field name="cancel_reason_id" domain="[('type', '=', type)]"
+                                string="Cancel Reason" options="{'no_create': True}"
+                                required="1"
+                                help="Select Invoice Cancel Reason"/>
+                    </group>
+                    <footer>
+                        <button name="post" type="object" class="oe_stat_button"
+                                icon="fa fa-plus-circle"
+                                string="Confirm"/>
+                        <button special="cancel" class="oe_stat_button"
+                                icon="fa fa-ban" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <!-- Invoice Cancel Reason Wizard Action -->
+        <record id="action_invoice_cancel_reason" model="ir.actions.act_window">
+            <field name="name">Invoice Cancel Reason</field>
+            <field name="res_model">wizard.invoice.cancel.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_invoice_cancel_reason_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+</data>
+</openerp>

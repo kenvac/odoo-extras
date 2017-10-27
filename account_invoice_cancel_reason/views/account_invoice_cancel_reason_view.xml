@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="invoice_cancel_reason_form_view" model="ir.ui.view">
+    <field name="name">Invoice Cancel Reason Form</field>
+    <field name="model">invoice.cancel.reason</field>
+    <field name="arch" type="xml">
+        <form >
+            <sheet>
+                <group colspan="4">
+                    <field name="name" required="1"/>
+                    <field name="type" required="1"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record id="invoice_cancel_reason_tree_view" model="ir.ui.view">
+        <field name="name">Invoice Cancel Reason Tree</field>
+        <field name="model">invoice.cancel.reason</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_invoice_cancel_reason_form" model="ir.actions.act_window">
+        <field name="name">Invoice Cancel Reason</field>
+        <field name="res_model">invoice.cancel.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to create a new Invoice Cancel Reason.
+            </p><p>
+            Manage invoice cancel reason records you want used in the system.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="action_invoice_cancel_reason_form" id="menu_action_invoice_cancel_reason_form"
+              parent="account.menu_configuration_misc" sequence="30" groups="account.group_account_manager"/>
+
+</data>
+</openerp>

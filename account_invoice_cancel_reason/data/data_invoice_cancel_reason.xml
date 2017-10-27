@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model="invoice.cancel.reason" id="data_invoice_cancel_reason_1">
+            <field name="name">Internal Cancel</field>
+        </record>
+    </data>
+</openerp>
