@@ -104,7 +104,7 @@ class WizardStockValuation(models.TransientModel):
             filtered(lambda r: r.standard_price != 0.0)
         # Update product price dict with standard price if zero
         for product in products:
-            productsValuation[product.id]['unit_price'] = \
+            valuationDict[product.id]['unit_price'] = \
                 product.standard_price
         allBom = self._get_allbom()
         bomdict = dict((id, prod) for id, prod in allBom)
@@ -120,8 +120,8 @@ class WizardStockValuation(models.TransientModel):
                             })
         product_ids = tools.flatten(self._get_prodnot_bom())
         for product in product.browse(product_ids):
-            cost = product.id in productsValuation and \
-                productsValuation[product.id] or \
+            cost = product.id in valuationDict and \
+                valuationDict[product.id]['unit_price'] or \
                 product.standard_price
             row = {'name': product.name,
                    'code': product.default_code,
