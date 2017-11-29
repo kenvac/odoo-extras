@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Kinner Vachhani
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record id="wizard_stock_valuation_view_form" model="ir.ui.view">
+        <field name="name">Stock Valuation Wizard</field>
+        <field name="model">stock.valuation.report.xlsx</field>
+        <field name="arch" type="xml">
+            <form string="Stock Valuation Report">
+                <p>Wizard to generate Stock Valuation report. This report refresh every week.</p>
+                <footer>
+                    <button name="create_report"
+                            type="object"
+                            string="Create"
+                            class="oe_highlight"/>
+                    or
+                    <button special="cancel"
+                            string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_valuation_report" model="ir.actions.act_window">
+        <field name="name">Inventory Valuation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.valuation.report.xlsx</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- <field name="search_view_id" ref="view_inventory_valuation_search"/> -->
+    </record>
+
+    <menuitem id="menu_action_stock_valuation_report"
+          action="action_stock_valuation_report"
+          parent="stock.menu_stock_inventory_control" sequence="80"/>
+
+
+    <report
+        id="stock_valuation_xlsx"
+        model="product.product"
+        string="Print Stock Valuation to Xlsx"
+        report_type="xlsx"
+        name="stock.valuation.xlsx"
+        file="stock.valuation.xlsx"
+        multi="True"
+        attachment_use="0"
+    />
+
+</data>
+</openerp>
