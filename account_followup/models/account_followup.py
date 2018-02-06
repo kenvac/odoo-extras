@@ -26,7 +26,7 @@ class Followup(models.Model):
                        store=True, readonly=True)
 
     _sql_constraints = [('company_uniq', 'unique(company_id)',
-                        'Only one follow-up per company is allowed')]
+                         'Only one follow-up per company is allowed')]
 
 
 class FollowupLine(models.Model):
@@ -177,18 +177,18 @@ class ResPartner(models.Model):
     payment_amount_due = fields.Float(
         compute="_compute_amounts_and_date", string="Amount Due",
         search="_search_payment_amount_due"
-        )
+    )
     payment_amount_overdue = fields.Float(
         compute="_compute_amounts_and_date",
         string="Amount Overdue",
         search="_search_payment_amount_overdue"
-        )
+    )
     payment_earliest_due_date = fields.Date(
         compute="_compute_amounts_and_date",
         string="Worst Due Date",
         # TODO Implement search functionality
         # search="_payment_earliest_date_search"
-        )
+    )
 
     # Compute methods
     @api.multi
@@ -272,12 +272,12 @@ class ResPartner(models.Model):
         self.ensure_one()
         company_id = self.env.user.company_id.id
         aml = self.env['account.move.line'].search([
-                ('partner_id', '=', self.id),
-                ('account_id.internal_type', '=', 'receivable'),
-                ('full_reconcile_id', '=', False),
-                ('company_id', '=', company_id),
-                '|', ('date_maturity', '=', False),
-                ('date_maturity', '<=', fields.Date.context_today(self))])
+            ('partner_id', '=', self.id),
+            ('account_id.internal_type', '=', 'receivable'),
+            ('full_reconcile_id', '=', False),
+            ('company_id', '=', company_id),
+            '|', ('date_maturity', '=', False),
+            ('date_maturity', '<=', fields.Date.context_today(self))])
         if not aml:
             raise Warning(_('Error!'), _("The partner does not have any "
                                          "accounting entries to print in the "
@@ -298,16 +298,16 @@ class ResPartner(models.Model):
         self.ensure_one()
         for partner in self:
             partners_to_email = partner.child_ids.filtered(
-                                lambda r: r.type == 'invoice' and
-                                r.email)
+                lambda r: r.type == 'invoice' and
+                r.email)
             if not partners_to_email and partner.email:
                 partners_to_email = partner
             if partners_to_email:
                 level = partner.latest_followup_level_id_without_lit
                 for partner_to_email in partners_to_email:
                     if level and level.send_email \
-                             and level.email_template_id \
-                             and level.email_template_id.id:
+                            and level.email_template_id \
+                            and level.email_template_id.id:
                         level.email_template_id.send_mail(partner_to_email.id)
                     else:
                         mail_template = self.env.ref(

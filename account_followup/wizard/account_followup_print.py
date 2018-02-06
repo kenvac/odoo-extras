@@ -140,40 +140,47 @@ class AccountFollowupPrint(models.TransientModel):
     # TODO
     def do_process(self):
         self.ensure_one()
-        import ipdb;ipdb.set_trace()
+        import ipdb
+        ipdb.set_trace()
         context = dict(self.env.context or {})
 
-        #Get partners
+        # Get partners
         tmp = self._get_partners_followp()
         partner_list = tmp['partner_ids']
         to_update = tmp['to_update']
 
-        #Update partners
+        # Update partners
         self.do_update_followup_level(to_update, partner_list)
-        #process the partners (send mails...)
+        # process the partners (send mails...)
         restot_context = context.copy()
-        restot = self.process_partners(cr, uid, partner_list, data, context=restot_context)
+        restot = self.process_partners(
+            cr, uid, partner_list, data, context=restot_context)
         context.update(restot_context)
-        #clear the manual actions if nothing is due anymore
-        nbactionscleared = self.clear_manual_actions(cr, uid, partner_list, context=context)
+        # clear the manual actions if nothing is due anymore
+        nbactionscleared = self.clear_manual_actions(
+            cr, uid, partner_list, context=context)
         if nbactionscleared > 0:
-            restot['resulttext'] = restot['resulttext'] + "<li>" +  _("%s partners have no credits and as such the action is cleared") %(str(nbactionscleared)) + "</li>"
-        #return the next action
+            restot['resulttext'] = restot['resulttext'] + "<li>" + \
+                _("%s partners have no credits and as such the action is cleared") % (
+                    str(nbactionscleared)) + "</li>"
+        # return the next action
         mod_obj = self.pool.get('ir.model.data')
-        model_data_ids = mod_obj.search(cr, uid, [('model','=','ir.ui.view'),('name','=','view_account_followup_sending_results')], context=context)
-        resource_id = mod_obj.read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
-        context.update({'description': restot['resulttext'], 'needprinting': restot['needprinting'], 'report_data': restot['action']})
+        model_data_ids = mod_obj.search(cr, uid, [('model', '=', 'ir.ui.view'), (
+            'name', '=', 'view_account_followup_sending_results')], context=context)
+        resource_id = mod_obj.read(cr, uid, model_data_ids, fields=[
+                                   'res_id'], context=context)[0]['res_id']
+        context.update(
+            {'description': restot['resulttext'], 'needprinting': restot['needprinting'], 'report_data': restot['action']})
         return {
             'name': _('Send Letters and Emails: Actions Summary'),
             'view_type': 'form',
             'context': context,
             'view_mode': 'tree,form',
             'res_model': 'account_followup.sending.results',
-            'views': [(resource_id,'form')],
+            'views': [(resource_id, 'form')],
             'type': 'ir.actions.act_window',
             'target': 'new',
-            }
-        pass
+        }
 
     def _get_partners_followp(self):
         self.ensure_one()
@@ -181,19 +188,19 @@ class AccountFollowupPrint(models.TransientModel):
         context = self._context
         cr = self._cr
         cr.execute(
-            "SELECT l.partner_id, l.followup_line_id,l.date_maturity, l.date, l.id "\
-            "FROM account_move_line AS l "\
-                "LEFT JOIN account_account AS a "\
-                "ON (l.account_id=a.id) "\
-            "WHERE (l.full_reconcile IS NULL) "\
-                "AND (a.type='receivable') "\
-                "AND (l.state<>'draft') "\
-                "AND (l.partner_id is NOT NULL) "\
-                "AND (not a.deprecated) "\
-                "AND (l.debit > 0) "\
-                "AND (l.company_id = %s) " \
-                "AND (l.blocked = False)" \
-            "ORDER BY l.date", (company_id,))  #l.blocked added to take litigation into account and it is not necessary to change follow-up level of account move lines without debit
+            "SELECT l.partner_id, l.followup_line_id,l.date_maturity, l.date, l.id "
+            "FROM account_move_line AS l "
+            "LEFT JOIN account_account AS a "
+            "ON (l.account_id=a.id) "
+            "WHERE (l.full_reconcile IS NULL) "
+            "AND (a.type='receivable') "
+            "AND (l.state<>'draft') "
+            "AND (l.partner_id is NOT NULL) "
+            "AND (not a.deprecated) "
+            "AND (l.debit > 0) "
+            "AND (l.company_id = %s) "
+            "AND (l.blocked = False)"
+            "ORDER BY l.date", (company_id,))  # l.blocked added to take litigation into account and it is not necessary to change follow-up level of account move lines without debit
         move_lines = cr.fetchall()
         old = None
         fups = {}
@@ -202,12 +209,12 @@ class AccountFollowupPrint(models.TransientModel):
 
         current_date = fields.Date.context_today(self)
         cr.execute(
-            "SELECT * "\
-            "FROM account_followup_followup_line "\
-            "WHERE followup_id=%s "\
+            "SELECT * "
+            "FROM account_followup_followup_line "
+            "WHERE followup_id=%s "
             "ORDER BY delay", (fup_id,))
 
-        #Create dictionary of tuples where first element is the date to compare with the due date and second element is the id of the next level
+        # Create dictionary of tuples where first element is the date to compare with the due date and second element is the id of the next level
         for result in cr.dictfetchall():
             delay = datetime.timedelta(days=result['delay'])
             fups[old] = (current_date - delay, result['id'])
@@ -216,8 +223,8 @@ class AccountFollowupPrint(models.TransientModel):
         partner_list = []
         to_update = {}
 
-        #Fill dictionary of accountmovelines to_update with the partners that need to be updated
-        for partner_id, followup_line_id, date_maturity,date, id in move_lines:
+        # Fill dictionary of accountmovelines to_update with the partners that need to be updated
+        for partner_id, followup_line_id, date_maturity, date, id in move_lines:
             if not partner_id:
                 continue
             if followup_line_id not in fups:
@@ -227,9 +234,11 @@ class AccountFollowupPrint(models.TransientModel):
                 if date_maturity <= fups[followup_line_id][0].strftime('%Y-%m-%d'):
                     if stat_line_id not in partner_list:
                         partner_list.append(stat_line_id)
-                    to_update[str(id)]= {'level': fups[followup_line_id][1], 'partner_id': stat_line_id}
+                    to_update[str(id)] = {
+                        'level': fups[followup_line_id][1], 'partner_id': stat_line_id}
             elif date and date <= fups[followup_line_id][0].strftime('%Y-%m-%d'):
                 if stat_line_id not in partner_list:
                     partner_list.append(stat_line_id)
-                to_update[str(id)]= {'level': fups[followup_line_id][1], 'partner_id': stat_line_id}
+                to_update[str(id)] = {
+                    'level': fups[followup_line_id][1], 'partner_id': stat_line_id}
         return {'partner_ids': partner_list, 'to_update': to_update}
