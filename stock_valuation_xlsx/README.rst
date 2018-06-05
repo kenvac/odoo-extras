@@ -10,14 +10,17 @@ This module generates xlsx valuation report based on last
 purchase price or standard price.
 
 E.g
+
 Product A
     Last purchase price = £2
-    Standand price = £4
+    Standard price = £4
     Stock in hand = 10
+
 Product B
     Last purchase price = £3
-    Standand price = £5
+    Standard price = £5
     Stock in hand = 10
+
 Product C (Spare parts never purchased)
     Standard price = £0.01
     Stock in hand = 100
