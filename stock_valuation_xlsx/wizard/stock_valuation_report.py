@@ -34,6 +34,7 @@ class WizardStockValuation(models.TransientModel):
                     OVER (PARTITION BY product_id ORDER BY in_date DESC)
                     AS rownum
                     FROM stock_quant
+                    WHERE cost != 0.0
                 )
                 SELECT q.product_id,
                     q.in_date,
