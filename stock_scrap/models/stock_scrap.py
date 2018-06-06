@@ -32,7 +32,8 @@ class StockScrap(models.Model):
         'Reference', default=lambda self: _('New'),
         copy=False, readonly=True, required=True,
         states={'done': [('readonly', True)]})
-    origin = fields.Char(string='Source Document')
+    origin = fields.Char(string='Source Document',
+                         states={'done': [('readonly', True)]})
     product_id = fields.Many2one(
         'product.product', 'Product',
         required=True, states={'done': [('readonly', True)]})
@@ -69,8 +70,10 @@ class StockScrap(models.Model):
         ('draft', 'Draft'),
         ('done', 'Done')], string='Status', default="draft")
     date_expected = fields.Datetime('Expected Date',
+                                    states={'done': [('readonly', True)]},
                                     default=fields.Datetime.now)
     cost = fields.Float('Unit Cost Price', default=0.0,
+                        states={'done': [('readonly', True)]},
                         help="Cost Price per unit")
     total_cost = fields.Float(help="""Total Scap Total. Total """
                                    """Scrap quantity * Unit Cost price""",
