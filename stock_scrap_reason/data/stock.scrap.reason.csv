@@ -1,0 +1,8 @@
+"id","name"
+"scrap_reason_1","IFP Internal Faulty Parts"
+"scrap_reason_2","SEW - Sewing Error"
+"scrap_reason_3","OP - Operator Error"
+"scrap_reason_4","SFP Supplier Faulty Parts"
+"scrap_reason_5","R&D"
+"scrap_reason_6","TS Test Samples"
+"scrap_reason_7","CS Customer Samples"

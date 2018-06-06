@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="stock_move_scrap_reason_form_view" model="ir.ui.view">
+            <field name="name">stock.scrap.reason.view.form</field>
+            <field name="model">stock.scrap.reason</field>
+            <field name="inherit_id" ref="stock_scrap_reason.stock_move_scrap_reason_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_partner_required"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="stock_move_scrap_reason_tree_view" model="ir.ui.view">
+            <field name="name">stock.scrap.reason.view.tree</field>
+            <field name="model">stock.scrap.reason</field>
+            <field name="inherit_id" ref="stock_scrap_reason.stock_move_scrap_reason_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_partner_required"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

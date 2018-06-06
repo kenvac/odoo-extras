@@ -9,7 +9,8 @@
             <field name="inherit_id" ref="stock_scrap.stock_scrap_form_view"/>
             <field name="arch" type="xml">
                 <field name="total_cost" position="after">
-                    <field name="reason_id" options="{'no_create_edit': True}"/>
+                    <field name="reason_id" options="{'no_open': True,'no_create': 1,
+                                                      'no_create_edit': 1}"/>
                 </field>
             </field>
         </record>
@@ -21,7 +22,7 @@
             <field name="inherit_id" ref="stock_scrap.stock_scrap_tree_view"/>
             <field name="arch" type="xml">
                 <field name="scrap_location_id" position="after">
-                    <field name="reason_id"/>
+                    <field name="reason_id" />
                 </field>
             </field>
         </record>

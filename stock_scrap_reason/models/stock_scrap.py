@@ -12,6 +12,7 @@ class StockScrap(models.Model):
                                 comodel_name="stock.scrap.reason",
                                 states={'done': [('readonly', True)]},
                                 ondelete="restrict",
+                                required=True,
                                 help="Reason for scraping.")
 
     def prepare_move_values(self):
