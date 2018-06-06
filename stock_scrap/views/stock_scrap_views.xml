@@ -58,7 +58,6 @@
                                 <field name="total_cost"/>
                             </group>
                             <group>
-                                <!-- TODO check below group is exist in version 8.0 -->
                                 <field name="lot_id" groups="stock.group_production_lot"/>
                                 <!-- <field name="tracking" invisible="1"/> -->
                                 <field name="package_id" groups="stock.group_tracking_lot"/>
@@ -84,7 +83,6 @@
                     <field name="create_date" string="Create Date"/>
                     <field name="product_id"/>
                     <field name="scrap_qty"/>
-                    <!-- TODO Check groups in belows  -->
                     <field name="product_uom_id" groups="product.group_uom"/>
                     <field name="location_id" groups="stock.group_locations"/>
                     <field name="scrap_location_id" groups="stock.group_locations"/>

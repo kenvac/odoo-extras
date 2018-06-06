@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Adds scrap reason to form view -->
+        <record id="view_stock_scrap_form" model="ir.ui.view">
+            <field name="name">stock.scrap.view.reason</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock_scrap.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <field name="total_cost" position="after">
+                    <field name="reason_id" options="{'no_create_edit': True}"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Adds scrap reason to list view -->
+        <record id="stock_scrap_tree_view" model="ir.ui.view">
+            <field name="name">stock.scrap.view.reason.tree</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock_scrap.stock_scrap_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="scrap_location_id" position="after">
+                    <field name="reason_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Adds Scrap reason group by -->
+        <record id="stock_scrap_search_view" model="ir.ui.view">
+            <field name="name">stock.scrap.reason.search</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock_scrap.stock_scrap_search_view"/>
+            <field name="arch" type="xml">
+                <filter string="Scrap Location" position="after">
+                    <filter string="Scrap Reason" domain="[]" context="{'group_by':'reason_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

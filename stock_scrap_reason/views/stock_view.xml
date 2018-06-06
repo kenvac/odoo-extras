@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="stock_move_inherit_scrap_reason_form_view" model="ir.ui.view">
+            <field name="name">stock.move.view.form.inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <group name="quants_grp" position="before">
+                    <group string="Scrap Reason">
+                        <field name="reason_id" options="{'no_create_edit': True}"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>
