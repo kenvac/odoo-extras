@@ -118,9 +118,14 @@ class StockScrap(models.Model):
         return self.picking_id and self.picking_id.move_lines.filtered(
             lambda x: x.product_id == self.product_id)
 
+    def prepare_move_values(self):
+        ''' Override his method to add/update move_values of
+        private method '''
+        return {}
+
     def _prepare_move_values(self):
         self.ensure_one()
-        return {
+        vals = {
             'name': self.name,
             'origin': self.origin or self.picking_id.name or self.name,
             'product_id': self.product_id.id,
@@ -131,6 +136,8 @@ class StockScrap(models.Model):
             'location_dest_id': self.scrap_location_id.id,
             'picking_id': self.picking_id.id
         }
+        vals.update(self.prepare_move_values())
+        return vals
 
     @api.multi
     def do_scrap(self):
