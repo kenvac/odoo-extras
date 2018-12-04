@@ -118,6 +118,7 @@ class WizardStockValuation(models.TransientModel):
                             'qty': bom.product_tmpl_id.qty_available,
                             'valuation':
                                 cost*bom.product_tmpl_id.qty_available,
+                            'seller': bom.product_tmpl_id.seller_id and bom.product_tmpl_id.seller_id.name or None,
                             })
         product_ids = tools.flatten(self._get_prodnot_bom())
         for product in product.browse(product_ids):
@@ -129,6 +130,7 @@ class WizardStockValuation(models.TransientModel):
                    'cost': cost,
                    'qty': product.qty_available,
                    'valuation': cost * product.qty_available,
+                   'seller': product.seller_id and product.seller_id.name or None,
                    }
             xlsList.append(row)
         return xlsList
