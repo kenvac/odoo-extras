@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- wizard.where.used.report form view -->
+        <record id="wizard_where_used_reportview_form" model="ir.ui.view">
+            <field name="name">wizard.where.used.reportview.form</field>
+            <field name="model">wizard.where.used.report</field>
+            <field name="arch" type="xml">
+                <form string="Where Used Report">
+                    <group string="Where Used Report">
+                        <field name="product_id" required="1"/>
+                        <field name="type" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="button_confirm" type="object" string="Confirm" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_wizard_where_used_report" model="ir.actions.act_window">
+            <field name="name">Product Used Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.where.used.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Where Used Report" id="menu_wizard_where_used_report" parent="base.menu_mrp_root" groups="mrp.group_mrp_manager" sequence="45"/>
+
+        <menuitem action="act_wizard_where_used_report" id="menu_wizard_where_used_report_action" groups="mrp.group_mrp_manager" parent="menu_wizard_where_used_report" sequence="30"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report id="product_xlsx" 
+            model="product.product" 
+            string="Product Used XLSX" 
+            report_type="xlsx" 
+            name="product.product.xlsx" 
+            file="product.product.xlsx" 
+            multi="1" 
+            attachment_use="False" />
+
+    </data>
+</openerp>
