@@ -14,7 +14,7 @@ class StockScrap(models.Model):
         return self.env['stock.location'].search([
             ('scrap_location', '=', True),
             ('company_id', 'in', [self.env.user.company_id.id, False])
-            ], limit=1).id
+        ], limit=1).id
 
     def _get_default_location_id(self):
         company_user = self.env.user.company_id
@@ -26,7 +26,8 @@ class StockScrap(models.Model):
 
     @api.depends('cost', 'scrap_qty')
     def _compute_total_cost(self):
-        self.total_cost = (self.scrap_qty or 0.0) * self.cost
+        for record in self:
+            record.total_cost = (record.scrap_qty or 0.0) * record.cost
 
     name = fields.Char(
         'Reference', default=lambda self: _('New'),
@@ -188,4 +189,4 @@ class StockScrap(models.Model):
                     'default_scrap_id': self.id
                 },
                 'target': 'new'
-                }
+            }
