@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class StockMove(models.Model):

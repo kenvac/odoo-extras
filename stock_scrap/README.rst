@@ -3,11 +3,11 @@
    :alt: License: LGPL-3
 
 ==================================
-Scrap Management - Back port V11.0
+Scrap Management
 ==================================
 
-This module back ports the functionality
-of stock scrap from odoo 11.0
+This module extends scrap functionality
+of stock module
 
 Bug Tracker
 ===========
