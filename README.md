@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/kenvac/odoo-extras.svg?branch=8.0)](https://travis-ci.org/kenvac/odoo-extras)
-[![Coverage Status](https://coveralls.io/repos/github/kenvac/email_status/badge.svg)](https://coveralls.io/github/kenvac/email_status)
+[![Coverage Status](https://coveralls.io/repos/github/kenvac/odoo-extras/badge.svg?branch=8.0)](https://coveralls.io/github/kenvac/odoo-extras?branch=8.0)
+[![codecov](https://codecov.io/gh/kenvac/odoo-extras/branch/8.0/graph/badge.svg)](https://codecov.io/gh/kenvac/odoo-extras)
+
 
 Odoo Modules
 ============
