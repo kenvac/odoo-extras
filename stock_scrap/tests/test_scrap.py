@@ -24,7 +24,7 @@ class StockMove(TransactionCase):
         })
 
     def test_scrap_1(self):
-        """ Check the Stcok scrap cost and total cost field.
+        """ Check the Stock scrap cost and total cost field.
         """
 
         scrap = self.env['stock.scrap'].create({

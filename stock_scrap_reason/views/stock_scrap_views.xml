@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Adds scrap reason to form view -->
+    <record id="view_stock_scrap_form" model="ir.ui.view">
+        <field name="name">stock.scrap.view.reason</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+            <field name="date_expected" position="after">
+                <field name="reason_id" required="1" options="{'no_open': True,'no_create': 1,
+                                                      'no_create_edit': 1}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Adds scrap reason to form view -->
+    <record id="view_stock_scrap_form2" model="ir.ui.view">
+        <field name="name">stock.scrap.view.reason</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view2"/>
+        <field name="arch" type="xml">
+            <field name="scrap_location_id" position="after">
+                <field name="reason_id" required="1" options="{'no_open': True,'no_create': 1,
+                                                      'no_create_edit': 1}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Adds scrap reason to list view -->
+    <record id="stock_scrap_tree_view" model="ir.ui.view">
+        <field name="name">stock.scrap.view.reason.tree</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="scrap_location_id" position="after">
+                <field name="reason_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Adds Scrap reason group by -->
+    <record id="stock_scrap_search_view" model="ir.ui.view">
+        <field name="name">stock.scrap.reason.search</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_search_view"/>
+        <field name="arch" type="xml">
+            <filter context="{'group_by':'scrap_location_id'}" position="after">
+                <filter string="Scrap Reason" domain="[]" context="{'group_by':'reason_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

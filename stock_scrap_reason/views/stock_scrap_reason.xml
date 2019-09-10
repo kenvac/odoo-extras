@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_warehouse_config" name="Scrap Reasons" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="20"/>
+
+    <record id="stock_move_scrap_reason_form_view" model="ir.ui.view">
+        <field name="name">stock.scrap.reason.view.form</field>
+        <field name="model">stock.scrap.reason</field>
+        <field name="arch" type="xml">
+            <form string="Scrap Reason">
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_move_scrap_reason_tree_view" model="ir.ui.view">
+        <field name="name">stock.scrap.reason.view.tree</field>
+        <field name="model">stock.scrap.reason</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_move_scrap_reason_action" model="ir.actions.act_window">
+        <field name="name">Move scrap reason</field>
+        <field name="res_model">stock.scrap.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="stock_move_scrap_reason_action_menu" action="stock_move_scrap_reason_action" parent="menu_warehouse_config" sequence="20"/>
+
+    <!-- <record id="stock_scrap_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.scrap_reason</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_lines2']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="reason_id" options="{'no_create_edit': True}"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <!-- <record id="action_warehouse_form" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_warehouse_tree"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to define a new warehouse.
+            </p>
+        </field>
+    </record>
+    <menuitem action="action_warehouse_form" id="menu_action_warehouse_form" parent="menu_warehouse_config" sequence="1"/> -->
+
+</odoo>
