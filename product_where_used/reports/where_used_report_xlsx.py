@@ -181,7 +181,7 @@ class ProductXlsx(ReportXlsx):
             po_sheet = workbook.add_worksheet('Purchase Order')
             po_sheet.set_column('A:H', 15)
             row = 5
-            column = 0
+            # column = 0
             po = self._get_po_data(product_ids)
             po_sheet.merge_range('A2:H2', 'Purchased Order', headerFormat)
             po_sheet.merge_range('A3:B3', search_product)
@@ -197,7 +197,7 @@ class ProductXlsx(ReportXlsx):
             so_sheet = workbook.add_worksheet('Sale Order')
             so_sheet.set_column('A:H', 15)
             row = 5
-            column = 0
+            # column = 0
             so = self._get_so_data(product_ids)
             so_sheet.merge_range('A2:H2', 'Sale Order', headerFormat)
             so_sheet.merge_range('A3:B3', search_product)
@@ -211,7 +211,7 @@ class ProductXlsx(ReportXlsx):
             bom_sheet = workbook.add_worksheet('Bills of Material')
             bom_sheet.set_column('A:E', 15)
             row = 5
-            column = 0
+            # column = 0
             bom = self._get_bom_data(product_ids)
             bom_sheet.merge_range('A2:H2', 'Bills of Materials', headerFormat)
             bom_sheet.merge_range('A3:B3', search_product)
