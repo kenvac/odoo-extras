@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        // {
+        //     "name": "Odoo 8",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "stopOnEntry": false,
+        //     "pythonPath": "${config:python.pythonPath}",
+        //     "program": "${file}",
+        //     "cwd": "${workspaceRoot}",
+        //     "env": {},
+        //     "envFile": "${workspaceRoot}/.env",
+        //     "debugOptions": [
+        //         "WaitOnAbnormalExit",
+        //         "WaitOnNormalExit",
+        //         "RedirectOutput"
+        //     ]
+        // },
+        {
+            "name": "odoo 8.0",
+            "type": "python",
+            "request": "launch",
+            // "stopOnEntry": true,
+            "pythonPath": "/home/jhones/.virtualenvs/pyodoo8/bin/python",
+            "program": "/mnt/storage1/workspace/odoo/8.0/odoo/odoo.py",
+            "cwd": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "-c",
+                "/mnt/storage1/workspace/projects/sbs/sbsodoo.conf",
+                "-d",
+                "sbsstaging"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+        },
+    ]
+}
