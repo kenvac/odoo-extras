@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_warehouse_config" 
+        name="Scrap Reasons" 
+        parent="stock.menu_stock_config_settings" 
+        groups="stock.group_stock_manager" 
+        sequence="20"/>
+
+    <record id="stock_move_scrap_reason_form_view" 
+        model="ir.ui.view">
+        <field name="name">stock.scrap.reason.view.form</field>
+        <field name="model">stock.scrap.reason</field>
+        <field name="arch" 
+            type="xml">
+            <form string="Scrap Reason">
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_move_scrap_reason_tree_view" 
+        model="ir.ui.view">
+        <field name="name">stock.scrap.reason.view.tree</field>
+        <field name="model">stock.scrap.reason</field>
+        <field name="arch" 
+            type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_move_scrap_reason_action" 
+        model="ir.actions.act_window">
+        <field name="name">Move scrap reason</field>
+        <field name="res_model">stock.scrap.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="stock_move_scrap_reason_action_menu" 
+        action="stock_move_scrap_reason_action" 
+        parent="menu_warehouse_config" 
+        sequence="20"/>
+
+</odoo>
